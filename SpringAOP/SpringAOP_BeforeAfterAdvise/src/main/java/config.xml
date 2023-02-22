@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- step:-1 configure implemented class -->
+	<bean id="id1" class="SpringAOP.TestImpClass" />
+
+	<!-- step:-2 configure Advise class -->
+	<bean id="id2" class="SpringAOP.WelcomeAdvise" />
+	<bean id="id3" class="SpringAOP.GoodByAdvise" />
+
+	<bean id="id4"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>SpringAOP.Testint</value>
+		</property>
+
+		<property name="interceptorNames">
+			<list>
+				<value>id2</value>
+				<value>id3</value>
+			</list>
+		</property>
+		<property name="target">
+			<ref bean="id1" />
+		</property>
+	</bean>
+</beans>
